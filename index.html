@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>上线流程管理控台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link href="layui/css/layui.css" rel="stylesheet">
+  <link rel="icon" href="favicon.ico">
+  <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="css/matrix.css" rel="stylesheet">
+
+  <style>
+      /* 防止下拉框的下拉列表被隐藏---必须设置--- */
+      .layui-table-cell {
+          overflow: visible;
+          line-height: 18px;
+      }
+      .layui-input, .layui-select{
+        height: 28px;
+      }
+      .layui-table-box {
+          overflow: visible;
+      }
+      
+      .layui-table-body {
+          overflow: visible;
+      }
+      .layui-form-select{
+        display: none;
+      }
+      /* 设置下拉框的高度与表格单元相同 */
+      td .layui-form-select{
+        margin-top: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+  </style>
+  </head>
+  <body>
+      <div id="wrapper">
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:;">
+                    上线流程管理控台
+                </a>
+              </div>
+              <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="javascript:;"><img src="images/icon-avatar.png" alt="admin" class="img-circle" />&nbsp; admin</a></li>
+                  <li><a href="javascript:;">&nbsp; 退出</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div id="page-wrapper">
+          <div class="panel-body">
+              <div class="form-group">
+                  <button  id="project_add"  class="btn btn-primary">添加项目</button>
+              </div>
+              <hr>
+              <form class="form-inline row layui-form" action="">
+                    <div class="form-group">
+                      <label>项目名称：</label>
+                      <input type="text" class="form-control" name="project_name">
+                    </div>
+                    <div class="form-group">
+                      <label>项目类型：</label>
+                      <select class="form-control" name="type">
+                        <option value="hf_type_1">阿里云新项目</option>
+                        <option value="hf_type_2">正常项目迭代</option>
+                        <option value="hf_type_3">控台类项目</option>
+                        <option value="hf_type_4">H5端项目</option>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group">
+                      <button lay-submit="" lay-filter="flow_query"  class="btn btn-primary">查询</button>
+                    </div>
+              </form>
+              <hr>
+              <form class="form-inline row" action="">
+                    <div class="form-group">
+                      <label>项目类型：</label>
+                      <input type="checkbox"  name="project_name">测试项目1
+                      <input type="checkbox"  name="project_name">测试项目2
+                      <input type="checkbox"  name="project_name">测试项目3
+                      <input type="checkbox"  name="project_name">测试项目4
+                    </div>
+                    
+                    <div class="form-group">
+                      <button lay-submit="" lay-filter="flow_query"  class="btn btn-primary">查询</button>
+                    </div>
+              </form>
+            </div>
+            <div id="data-echats" style="min-height: 600px"></div>
+            <table id="demo" lay-filter="demoTest"></table>
+            <form id="add_form" class="form-horizontal form-inline layui-form" style="display:none">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">项目名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control col-sm-3" name="project_name">
+                    </div>
+                   
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">项目类型：</label>
+                    <div class="col-sm-6">
+                      <select class="form-control" name="type">
+                        <option value="hf_type_1">阿里云新项目</option>
+                        <option value="hf_type_2">正常项目迭代</option>
+                        <option value="hf_type_3">控台类项目</option>
+                        <option value="hf_type_4">H5端项目</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">项目日期：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="project_date" id="project_date">
+                    </div>
+                   
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-4 control-label">钉钉帐号：</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" name="to_account" id="to_account">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-4 control-label">项目负责人：</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" name="leader" id="leader">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-sm-4 control-label">项目版本：</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" name="project_version" id="project_version">
+                      </div>
+                  </div>
+            </form>
+          </div>
+      </div>
+   
+    <!-- <script type="text/html" id="toolbar-demo">
+        <div class="layui-btn-container">
+          <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+          <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+          <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+        </div>
+    </script> -->
+    <script type="text/html" id="typeTpl">
+        <select name="id_type" lay-filter="select_demo">
+              <option value="">请选择</option>
+              <option value="1">身份证</option>
+              <option value="2">企业证照</option>
+        </select>
+    </script>
+    <script type="text/html" id="event_bar">
+      <a class="layui-btn layui-btn-xs" lay-event="query">查看</a>
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script>
+     var project_type_list = {"hf_type_1": "阿里云新项目", "hf_type_2": "正常项目迭代", 
+     "hf_type_3": "控台类项目", "hf_type_4": "H5端项目", }
+     layui.use(['form', 'laydate', 'layer'], function(){
+       var $ = layui.$, layer = layui.layer;
+       
+        //渲染form
+        layui.form.render();
+        //初始化日期控件
+        layui.laydate.render({
+            elem: '#project_date'
+            ,range: '~'
+            ,format: 'yyyymmdd'
+        });
+      $("#project_add").click(function(){
+          layer.open({
+            type:1,
+            anim: 3,
+            title:"项目添加",
+            content: $("#add_form"),
+            btn: ['保存', '取消'],
+            btnAlign: 'c',
+            btn1:function(){
+                alert("保存成功");
+            },
+            btn2:function(){
+
+            }
+
+          })
+      })
+      // 初始化表格
+      layui.form.on('submit(flow_query)', function(data){
+        var table_data = [];
+        var y_data= [];
+        var x_data = [];
+        var one_day_milli_sec = 1000*3600*24;
+        var project_info = [];
+        var search_cond = data.field;
+        var tbl_cols = [[
+              {type: "checkbox"},
+              {"field": "id", "title": "ID"},
+              {"field": "project_name", "title": "项目名称"},
+              {"field": "project_type", "title": "项目类别"},
+              {"field": "flow_name", "title": "流程名称"},
+              {"field": "end_date", "title": "完成时间"},
+              {fixed: 'right', title:'操作', toolbar: '#event_bar', width:150},
+            ] 
+          ]
+        
+        $.ajax({
+          "type": "GET",
+          "url": "http://172.31.19.40:8082/server/api/get-flow",
+          "dataType": "json",
+          "success":function(json_data){
+              // $.each(json_data['all_project'], function(key, item){
+    
+              //     if(search_cond['project_name'] && item['project_name'].search(search_cond['project_name']) != -1){
+              //       for(var i=0; i< item['flow_set'].length; i++){
+              //         var temp = {};
+              //         var between_time = get_date_diff_time(item['start_date'], item['end_date']);
+              //         var flow_data = json_data['all_flow'][item['flow_set'][i]];
+              //         var flow_end_time = new Date(item['start_date']).getTime() + (between_time*flow_data['proportion']);
+              //         temp['id'] = i+1;
+              //         temp['project_type'] = project_type_list[item['type']];
+              //         temp['flow_name'] = flow_data['name'];
+              //         temp['project_name'] = item['project_name'];
+              //         temp['end_date']  = get_format_date(flow_end_time);
+              //         project_info[0] = item['start_date'];
+              //         project_info[1] = item['end_date'];
+              //         y_data.push(temp['flow_name']);
+              //         x_data.push(temp['end_date']);
+              //         table_data.push(temp);
+              //       }
+
+              //     }
+              // })
+          
+          init_table_info("demo",tbl_cols, json_data.table_data);
+          // console.log(table_data)
+          // console.log(x_data)
+          // console.log(y_data)
+          // console.log(project_info)
+          x_data = json_data.charts_data.x_data;
+          y_data = json_data.charts_data.y_data;
+          project_info = [json_data.charts_data.start_date, json_data.charts_data.end_date];
+          init_echats("data-echats", {'text': 'web项目', 'sub_text': '上线步骤文档'}, x_data, y_data, project_info);
+          }
+        });
+       
+       
+        // init_table_info("demo",tbl_cols, table_data);
+        // init_echats("data-echats", {'text': 'web项目', 'sub_text': '上线步骤文档'}, x_data, y_data);
+        return false;
+       });
+     })
+     
+
+    /**layui控件开始**/
+    function init_table_info(el_name,tbl_cols,tbl_data){
+      var tabledata = [];
+      layui.use(['table'], function(){
+        var table = layui.table;
+        table.render({
+          elem: "#"+el_name,
+          cols: tbl_cols,
+          toolbar: "",
+          defaultToolbar: [],
+          data:tbl_data,
+          limit:100,
+          page: false
+        });
+        table.on('tool(demoTest)', function(obj){
+          var lay_event = obj.event;
+          if (lay_event == "query"){
+              layer.confirm('查询么', function(index){
+                  for(var i=0; i<ids.data.length; i++){
+                    obj_data.splice(i, 1);
+                  }
+                  table.reload('demo', {
+                      data: obj_data
+                  }); 
+                  layer.close(index);
+                });
+            }
+        })
+      table.on('toolbar(demoTest)', function(obj){
+   
+         var ids = table.checkStatus(obj.config.id)
+         var obj_data = obj.config.data;
+         var lay_event = obj.event;
+         var tr = obj.tr;
+         if (lay_event == "delete"){
+          layer.confirm('确认删除？', function(index){
+              for(var i=0; i<ids.data.length; i++){
+                obj_data.splice(i, 1);
+              }
+              table.reload('demo', {
+                  data: obj_data
+              }); 
+              layer.close(index);
+            });
+         }else if (lay_event == "add"){
+           tabledata = obj_data;
+           tabledata.push({
+		  		    "id": ""
+		  	      ,"a1": ""
+		  	      ,"a2": ""
+		  	      ,"a3": ""
+		  	      ,"a4": ""
+			      })    
+			
+            table.reload('demo', {
+              data: tabledata
+            }); 
+         }
+      })
+      })
+    }
+  
+    /**柱状图开始'data-echats'**/
+    function init_echats(el_name,title,x_data, y_data, project_info){
+     
+      var dom = document.getElementById(el_name);
+      var myChart = echarts.init(dom);
+      var app = {};
+      option = null;
+      app.title = '前端';
+      // var stime='',
+      // etime='2019-05-31';
+      option = {
+        title: {
+            text: title['text'],
+            subtext: title['sub_text']
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow',
+                axis: 'x'
+            }
+        },
+        color:"#2d8cf0",
+        legend: {
+            data: ['项目名称'],
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name: '时间点',
+            type: 'time',
+            boundaryGap: [0, 0.01],
+            min:new Date(project_info[0].replace(/-/g,"/")),
+            max:new Date(project_info[1].replace(/-/g,"/")),
+            nameLocation:'start',
+            axisLabel:{
+              formatter:function(value){
+                var d = new Date(value);
+                var month = d.getMonth() >= 10 ? d.getMonth()+1 : ('0' + (d.getMonth()+1));
+                var day = d.getDate() >= 10 ? d.getDate() : ('0' + d.getDate());
+                return month+ '-' + day;
+              },
+              interval: 0 ,
+              rotate:-60 
+            }
+           
+        },
+        yAxis: {
+            type: 'category',
+            data: y_data,
+            axisLabel:{
+              interval: 0 ,
+              rotate:0
+            }
+           
+        },
+        series:[
+          {
+            'name': '截止时间', 
+            'type': 'bar', 
+            'data': x_data
+          }
+        ]
+      };
+      if (option && typeof option === "object") {
+          myChart.setOption(option, true);
+      }
+
+    }
+    function get_random_date(y_data,stime,etime){
+      var date_arr = []
+      var start_date_m = new Date(stime).getTime();
+      var end_date_m = new Date(etime).getTime();
+      for (var i=0; i<y_data.length; i++){
+        var diff_time = end_date_m - start_date_m;
+        var random_m = Math.floor(Math.random()* diff_time);
+        var d = new Date(start_date_m +random_m);
+        var year = d.getFullYear();
+        var month = d.getMonth() >= 10 ? d.getMonth()+1 : ('0' + (d.getMonth()+1));
+        var day = d.getDate() >= 10 ? d.getDate() : ('0' + d.getDate());
+        date_arr.push(year+ '-' +month+ '-'+day)
+      }
+      
+      return date_arr;
+    }
+
+    function get_date_diff_time(date1, date2){
+        return new Date(date2) - new Date(date1);
+    }
+
+    function get_format_date(date_sec, sep){
+      sep = sep ? sep == undefined : "-";
+      var d = new Date(date_sec);
+      var year = d.getFullYear();
+      var month = d.getMonth() >= 10 ? d.getMonth()+1 : ('0' + (d.getMonth()+1));
+      var day = d.getDate() >= 10 ? d.getDate() : ('0' + d.getDate());
+      return year+ sep +month+ sep +day;
+    }
+    </script>
+
+  </body>
+  </html>

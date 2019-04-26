@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>layer Table</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link href="layui/css/layui.css" rel="stylesheet">
+  <style>
+      /* 防止下拉框的下拉列表被隐藏---必须设置--- */
+      .layui-table-cell {
+          overflow: visible;
+          line-height: 18px;
+      }
+      .layui-input, .layui-select{
+        height: 28px;
+      }
+      .layui-table-box {
+          overflow: visible;
+      }
+      
+      .layui-table-body {
+          overflow: visible;
+      }
+      /* 设置下拉框的高度与表格单元相同 */
+      td .layui-form-select{
+        margin-top: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+  </style>
+  </head>
+  <body>
+
+    <div id="container" style="height: 500px"></div>
+
+    <script type="text/html" id="toolbar-demo">
+        <div class="layui-btn-container">
+          <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+          <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+          <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+        </div>
+    </script>
+    <script type="text/html" id="typeTpl">
+        <select name="id_type" lay-filter="select_demo">
+              <option value="">请选择</option>
+              <option value="1">身份证</option>
+              <option value="2">企业证照</option>
+        </select>
+    </script>
+    <table id="demo" lay-filter="demoTest"></table>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script>
+    var tabledata = [];
+    layui.use(['table', 'form'], function(){
+        var table = layui.table, form = layui.form;
+        form.render();
+        table.render({
+         elem: "#demo",
+         cols: [[
+            {type: "checkbox"},
+            {"field": "id", "title": "ID"},
+            {"field": "a1", "title": "股东"},
+            {"field": "a2", "title": "身份证"},
+            {"field": "a3", "title": "姓名"},
+            {"field": "a4", "title": "类型", "templet": "#typeTpl"}
+          ] 
+         ],
+         toolbar: "#toolbar-demo",
+         defaultToolbar: [],
+         data: [
+           {"id":"1", "a1":"ssss", "a2":"89123123123123", "a3":"你", "a4": "1"},
+           {"id":"2", "a1":"asdas", "a2":"89123123123123", "a3":"我", "a4": "1"}
+         ],
+         page: false
+     });
+
+     table.on('toolbar(demoTest)', function(obj){
+   
+         var ids = table.checkStatus(obj.config.id)
+         var obj_data = obj.config.data;
+         var lay_event = obj.event;
+         var tr = obj.tr;
+         if (lay_event == "delete"){
+          layer.confirm('确认删除？', function(index){
+              for(var i=0; i<ids.data.length; i++){
+                obj_data.splice(i, 1);
+              }
+              table.reload('demo', {
+                  data: obj_data
+              }); 
+              layer.close(index);
+            });
+         }else if (lay_event == "add"){
+           tabledata = obj_data;
+           tabledata.push({
+		  		    "id": ""
+		  	      ,"a1": ""
+		  	      ,"a2": ""
+		  	      ,"a3": ""
+		  	      ,"a4": ""
+			      })    
+			
+            table.reload('demo', {
+              data: tabledata
+            }); 
+         }
+     })
+    })
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '前端';
+
+    option = {
+        title: {
+            text: '前端项目',
+            subtext: '上线步骤文档'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        color:"#91c7ae",
+        legend: {
+            data: ['项目名称'],
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'time',
+            boundaryGap: [0, 1]
+        },
+        yAxis: {
+            type: 'category',
+            data: ['服务器申请','白名单开启','git版本库申请','域名申请','服务器容器构建','redis申请', '项目jenkis申请', '服务器申请','白名单开启','git版本库申请','域名申请','服务器容器构建','redis申请', '项目jenkis申请']
+        },
+        series: [
+            {
+                name: '项目名称',
+                type: 'bar',
+                data: ['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04', '2019-01-05', '2019-01-06', '2019-01-06', '2019-01-06', '2019-01-06', '2019-01-06', '2019-01-06', '2019-01-06']
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+    </script>
+
+  </body>
+  </html>

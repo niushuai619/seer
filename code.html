@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>vue布局</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="css/codemirror.css"/>
+  <link rel="stylesheet" href="css/material.css"/>
+  <script type="text/javascript" src="javascript/codemirror.js"></script>
+  <script type="text/javascript" src="javascript/python.js"></script>
+</head>
+
+<body>
+
+<textarea id="code-script">
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+import os
+import cc
+</textarea>
+
+<script>
+var code_script = document.getElementById("code-script")
+var editor = CodeMirror.fromTextArea(code_script, { //script_once_code为你的textarea的ID号
+      lineNumbers: true,//是否显示行号         
+      mode:"python",　//默认脚本编码
+      lineWrapping:true, //是否强制换行
+      styleActiveLine:true,
+      smartIndent: true,
+      theme: 'material'
+});
+editor.setSize('auto', 'auto')
+</script>
+</body>
+</html>

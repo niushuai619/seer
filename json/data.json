@@ -1,0 +1,44 @@
+{
+    "all_flow":{
+        "hf_flow_1": {"name":"云项目RDC立项", "proportion": 1, "desc": "邮件申请发送QA[许晶、张梅] 项目相关人员"},
+        "hf_flow_2": {"name":"项目Git版本库申请", "proportion": 0.9, "desc": "邮件申请发送孙津津"},
+        "hf_flow_3": {"name":"测试服务器环境搭建", "proportion": 0.85, "desc": "在项目组公共的测试服务器上docker搭建环境"},
+        "hf_flow_4": {"name":"测试环境jenkis申请", "proportion": 0.85, "desc": "邮件发送[孙津津、黑烨]等"},
+        "hf_flow_5": {"name":"联调服务器环境搭建", "proportion": 0.7, "desc": "在项目组公共的联调服务器上docker搭建环境"},
+        "hf_flow_6": {"name":"联调环境jenkis申请", "proportion": 0.7, "desc": "邮件发送[孙津津、黑烨]等"},
+        "hf_flow_7": {"name":"RealMe接口配置申请", "proportion": 0.7, "desc": "邮件发送[黄澍、郭欣]"},
+        "hf_flow_8": {"name":"Jarvis接口配置申请", "proportion": 0.7, "desc": "邮件发送相应格式的模版到[林凤鸣]"},
+        "hf_flow_9": {"name":"redis正式服务器申请", "proportion": 0.7, "desc": "邮件发送到[陈建飞、蔡君]"},
+        "hf_flow_10": {"name":"redis白名单申请", "proportion": 0.7, "desc": "邮件发送到[陈建飞]"},
+        "hf_flow_11": {"name":"联调域名申请", "proportion": 0.7, "desc": "邮件发送到[余传琪、张秀]"},
+        "hf_flow_12": {"name":"生产域名申请", "proportion": 0.7, "desc": "邮件发送到[余传琪、张秀]"},
+        "hf_flow_13": {"name":"联调域名绑定服务器", "proportion": 0.7, "desc": "邮件发送到[余传琪、张秀]"},
+        "hf_flow_14": {"name":"生产域名绑定服务器", "proportion": 0.7, "desc": "邮件发送到[余传琪、张秀]"},
+        "hf_flow_15": {"name":"项目架构文档编写", "proportion": 0.7, "desc": "QA会拉取相关人员"},
+        "hf_flow_16": {"name":"项目架构文档评审", "proportion": 0.7, "desc": "架构相关人员[张乃龙、张宇伟]"},
+        "hf_flow_17": {"name":"项目上线代码评审", "proportion": 0.6, "desc": "开发、测试、QA、产品"},
+        "hf_flow_18": {"name":"项目上线检查评审", "proportion": 0.7, "desc": "邮件发送评审或会议评审[胡超、贾春迎]"},
+        "hf_flow_19": {"name":"项目上线验收邮件回复", "proportion": 0.7, "desc": "相关项目的产品确认"},
+        "hf_flow_20": {"name":"项目日志归档", "proportion": 0.65, "desc": "发送邮件到孙津津"},
+        "hf_flow_21": {"name":"项目阿里云日志申请开通", "proportion": 0.7, "desc": "发送邮件到孙津津"},
+        "hf_flow_22": {"name":"云项目RDC任务拆分", "proportion": 0.7, "desc": "相关项目组负责人"},
+        "hf_flow_23": {"name":"项目甘特图排期", "proportion": 0.75, "desc": "相关项目组负责人"},
+        "hf_flow_24": {"name":"项目接口联调", "proportion": 0.7, "desc": "项目相关接口团队"},
+        "hf_flow_25": {"name":"项目服务内接口白名单申请", "proportion": 0.7, "desc": "chinapnr[张超宏]、cloudpnr[余传琪]"},
+        "hf_flow_26": {"name":"云上新项目架构沟通确认", "proportion": 0.7, "desc": "相关开发和架构组人员"},
+        "hf_flow_27": {"name":"测试、联调、生产数据库申请", "proportion": 0.7, "desc": "登录BPM申请"},
+        "hf_flow_28": {"name":"生产服务器申请", "proportion": 0.7, "desc": "登录BPM申请"},
+        "hf_flow_29": {"name":"项目是否开启外网访问", "proportion": 0.7, "desc": "邮件发送到[夏旻]"},
+        "hf_flow_30": {"name":"项目接入devops", "proportion": 0.7, "desc": "相关开发人员咨询"}
+    },
+    "all_project":[
+        {"project_name": "test控台项目", "type": "hf_type_1", "start_date": "2019-05-01",
+             "end_date": "2019-05-30", "dingding_info": "", "flow_set":
+             ["hf_flow_1", "hf_flow_2", "hf_flow_3", "hf_flow_4", "hf_flow_5", "hf_flow_6", 
+                "hf_flow_7",  "hf_flow_8",  "hf_flow_12",  "hf_flow_14", "hf_flow_19"]},
+        {"project_name": "testH5项目", "type": "hf_type_4", "start_date": "2019-04-01",
+             "end_date": "2019-06-30", "dingding_info": "", "flow_set":
+             ["hf_flow_1", "hf_flow_2", "hf_flow_3", "hf_flow_4", "hf_flow_5", "hf_flow_6", 
+                "hf_flow_11",  "hf_flow_17",  "hf_flow_18",  "hf_flow_19", "hf_flow_20", "hf_flow_23"]}
+    ]
+}
